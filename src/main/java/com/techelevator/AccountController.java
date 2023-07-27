@@ -25,7 +25,7 @@ public class AccountController
         remainingBalance += amountToDeposit;
         return remainingBalance;
     }
-    public double withdraw (double price)
+    public double deduct (double price)
     {
         remainingBalance -= price;
         return remainingBalance;
