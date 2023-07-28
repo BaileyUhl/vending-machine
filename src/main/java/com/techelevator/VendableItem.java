@@ -2,7 +2,7 @@ package com.techelevator;
 
 import java.math.BigDecimal;
 
-public class VendableItem extends AccountController
+public class VendableItem implements BuyableItem
 {
     private String name;
     private String location;
@@ -13,7 +13,6 @@ public class VendableItem extends AccountController
     //Constructor
     public VendableItem(String name, String location, double price, String itemCategory)
     {
-        super(0.0);
         this.name = name;
         this.location = location;
         this.price = price;
@@ -23,7 +22,7 @@ public class VendableItem extends AccountController
     //End Constructor
 
     //Getters
-    public String getName() {
+    public String getName(){
         return name;
     }
     public String getLocation() {
@@ -32,6 +31,12 @@ public class VendableItem extends AccountController
     public double getPrice() {
         return price;
     }
+
+    @Override
+    public String getSoundItemMakes() {
+        return null;
+    }
+
     public String getItemCategory() {
         return itemCategory;
     }

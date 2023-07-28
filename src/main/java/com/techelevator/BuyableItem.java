@@ -6,7 +6,8 @@ public interface BuyableItem
 {
     String getName();
     String getLocation();
-    BigDecimal getPrice();
+    double getPrice();
     String getSoundItemMakes();
+    int initialStock = 5;
 
 }
