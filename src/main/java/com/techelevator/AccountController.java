@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 public class AccountController
 {
@@ -9,7 +10,7 @@ public class AccountController
 
     //Constructor
     public AccountController(double remainingBalance) {
-        this.remainingBalance = STARTING_BALANCE;
+        this.remainingBalance = 0.0;
     }
     //End Constructor
 
@@ -18,6 +19,10 @@ public class AccountController
         return remainingBalance;
     }
     //End Getter
+
+    public void setRemainingBalance(double remainingBalance) {
+        this.remainingBalance = remainingBalance;
+    }
 
     //Methods
     public double deposit (double amountToDeposit)
@@ -30,6 +35,23 @@ public class AccountController
         remainingBalance -= price;
         return remainingBalance;
     }
-    //End Methods
+    public void  makeChange (double balance){
+       int quarters = 0;
+        int dimes = 0;
+        int nickels = 0;
+        while(balance > 0.0){
 
-}
+            quarters = (int) (balance % .25);
+            balance -= quarters * .25;
+            dimes = (int)(balance % .1);
+            balance -= dimes * .1;
+            nickels = (int)(balance % .05);
+            balance -= nickels * .05;
+
+        }
+        System.out.println("Your change will be " + quarters + " Quarters " + dimes + " Dimes " + nickels + "  Nickels ");
+       // remainingBalance = balance;
+
+
+    }}
+

@@ -1,7 +1,14 @@
 package com.techelevator;
 
-public class OutputMessage
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Map;
+
+public class OutputMessage extends InventoryManager
 {
+    public OutputMessage() throws FileNotFoundException {
+    }
+
     public void allDone()
     {
         System.out.println("Thanks for shopping!");
@@ -46,4 +53,14 @@ public class OutputMessage
         System.out.println("Choose one of the following options:" + "\n" + "(1) Feed Money "
                 + "\n" + "(2) Select Product" + "\n" + "(3) Finish Transaction");
     }
-}
+
+    public void mainsssss() throws IOException {
+        InventoryManager setInventory = new InventoryManager();
+        Map<String, VendableItem> inventory = setInventory.inventory();
+        for( Map.Entry<String,VendableItem> item : inventory.entrySet()) {
+
+            String slot = item.getKey();
+            VendableItem itemObject = item.getValue();
+            System.out.println(slot + " " + itemObject.getName() + " " + itemObject.getPrice() + " " + itemObject.getQuantity());
+
+    }}}

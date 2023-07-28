@@ -8,7 +8,7 @@ public abstract class VendableItem implements BuyableItem
     private String location;
     private double price;
     private String itemCategory;
-    private int quantity;
+    private int quantity =5;
     private int RESTOCK = 5;
 //    private int bogodo;
 

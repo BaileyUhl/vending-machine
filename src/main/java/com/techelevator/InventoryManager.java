@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.time.format.FormatStyle;
 import java.util.*;
 
@@ -56,8 +57,38 @@ public class InventoryManager
         }
         return inventory;
     }
+    public String[] change (double balance){
+        String [] changer = new String[0];
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        int change = 0;
+        balance = (int) change;
+        int dollars = (int)change;
+        int twenties = dollars / 20;
+        int dollars1 = dollars % 20;
+        int tens = dollars1 / 10;
+        int dollars2 = dollars % 10;
+        int fives = dollars2 / 5;
+        int dollars3 = dollars % 5;
+        int ones = dollars3;
 
-}
+        String moneyString = decimalFormat.format(change);
+        String changeString = Double.toString(change);
+        String[] parts = moneyString.split("\\.");
+        String part2 = parts[1];
+        double cents5 = Double.parseDouble(part2);
+
+        int cents = (int)cents5;
+        int quarters = cents / 25;
+        int cents1 = cents % 25;
+        int dimes = cents1 / 10;
+        int cents2 = cents % 10;
+        int nickels = cents2 / 5;
+        int cents3 = cents % 5;
+        int pennies = cents3;
+
+        return changer;
+    }}
+
 
 
 

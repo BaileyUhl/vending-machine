@@ -2,13 +2,15 @@ package com.techelevator;
 
 import com.sun.source.tree.WhileLoopTree;
 
+import java.awt.*;
 import java.io.*;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 
-public class VendingMachineCLI extends InventoryManager {
+public class VendingMachineCLI extends InventoryManager  {
 	private final Scanner userInput = new Scanner(System.in);
 
 
@@ -36,6 +38,8 @@ public class VendingMachineCLI extends InventoryManager {
 	}
 
 	public void run() throws IOException {
+		double balance = 0;
+		AccountController newAccount = new AccountController(0.0);
 		while (true) {
 			OutputMessage main = new OutputMessage();
 			main.mainmenu();
@@ -54,63 +58,109 @@ public class VendingMachineCLI extends InventoryManager {
 
 					System.out.println(slot + " " + itemObject.getName() + " " + itemObject.getPrice() + " " + itemObject.getQuantity());
 				}
-
-				//we want them to move to purchase phase reprints menu without list:
 				main.mainPurcahsemenu();
 				choice = userInput.nextLine();
 			}
 
-
-			while (true) {
 				if (choice.equals("2")) {
-					AccountController newAccount = new AccountController(0.0);
+
 					System.out.println();
-					System.out.println("Your balance is: " + AccountController.STARTING_BALANCE);
+					while (true) {
+					System.out.println("Your balance is: " + balance);
 					main.moneyMenu();
-					choice = userInput.nextLine();
-					if (choice.equals("1")) {
+					 choice = userInput.nextLine();
+					if (choice.equals("1"))
+					{
 						System.out.println("Please enter how much you wish to deposit (whole number only) ");
 						double newbalance = Double.parseDouble(userInput.nextLine());
-						newAccount.deposit(newbalance);
-						System.out.println(newAccount.getRemainingBalance());
+						balance += newAccount.deposit(newbalance);
+						System.out.println(balance);
 						System.out.println("Do you wish to add more money? Y or N?");
 						String choiceTwo = userInput.next();
-						if (choiceTwo.equals("Y")) {
+						int count = 1;
+						if(choiceTwo.equals("Y")) {
 							System.out.println("Please enter how much you wish to deposit (whole number only) ");
 							Scanner newamount = new Scanner(System.in);
 							double money = Double.parseDouble(newamount.nextLine());
-							newAccount.deposit(money);
+							balance = newAccount.deposit(money);
 							System.out.println(newAccount.getRemainingBalance());
 
-							// need to have variable to hold total price of all items
-							// need a variable to hold names of items bought
-							main.mainPurcahsemenu();
+						}
+					}
+						//main.mainPurcahsemenu();
+						 //choice = userInput.nextLine();
+						if (choice.equals("2"))
+						{
+							for (Map.Entry<String, VendableItem> item : inventory.entrySet())
+							{
+								String slot = item.getKey();
+								VendableItem itemObject = item.getValue();
+								System.out.println(slot + " " + itemObject.getName() + " " + itemObject.getPrice() + " " + itemObject.getQuantity());
+							}
+							System.out.println("Which item would you like to buy?");
 							choice = userInput.nextLine();
+								for (Map.Entry<String, VendableItem> item : inventory.entrySet())
+								{
+									String slot = item.getKey();
+									VendableItem itemObject = item.getValue();
+
+								if (choice.equals(slot) && balance >= itemObject.getPrice() && itemObject.getQuantity() > 0)
+								{
+									System.out.println("Vending " + itemObject.getName());
+									// subtract the price from balance
+									balance -= itemObject.getPrice();
+									int remain = itemObject.getQuantity() - 1;
+									itemObject.setQuantity(remain);
+									String itemType = itemObject.getItemCategory();
+									if(itemType.equals("Gum"))
+									{
+										System.out.println("Chew Chew Yum!");
+										}
+									if(itemType.equals("Drink"))
+									{
+										System.out.println("Glug Glug Yum!");
+									}
+									if(itemType.equals("Candy"))
+									{
+										System.out.println("Yummy Yummy So Sweet!");
+									}
+									if(itemType.equals("Munchy"))
+									{
+										System.out.println("Crunch Crunch Yum!");
+									}
+								}
+								if(choice.equals(slot) && balance < itemObject.getPrice() ){
+
+									System.out.println("Broke boy add more money");
+								}
+								if(choice.equals(slot) && itemObject.getQuantity() == 0){
+									System.out.println("Sold Out!");
+								}
+										}
+									}			if(choice.equals("3"))
+														{
+															System.out.println(balance);
+															System.out.println("Thank you for your purchase, your change will be: ");
+															newAccount.makeChange(balance);
+
+														}
+								}
 						}
 
-					}
 					if (choice.equals("3"))
 					{
+
+						System.out.println(balance);
 						System.out.println("Thank you for your purchase, your change will be: ");
-						// tell customer their balance
-						//restart the vending machine from main menu
-					}
-					System.out.println("Thanks! ");
-
-					// display vending machine items
-
-				}
-				//Exit (Main Menu)
-				while (true){
-					if (choice.equals("3"))
-					{
-						System.out.println("Screw you guys, I'm going home");
-						//restocks all items if sold out
+						newAccount.makeChange(balance);
+						System.exit(0);
 					}
 			}
 		}
-	}
-}}
+}
+
+
+
 
 
 
