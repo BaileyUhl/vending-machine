@@ -2,15 +2,13 @@ package com.techelevator;
 
 import java.io.*;
 import java.time.format.FormatStyle;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class InventoryManager
 {
     private Map<String, String> spaceAndItemName = new HashMap<>();
     private Map<Double, String> priceAndType = new HashMap<>();
-    private int RESTOCK = 5;
+
 
     public InventoryManager() throws FileNotFoundException {
     }
@@ -19,95 +17,51 @@ public class InventoryManager
         return spaceAndItemName;
     }
 
-    //Getters
-    public int RESTOCK()
-    {
-        return RESTOCK;
-    }
-    //End Getter
 
 
-
-
-    public Map<String,String> breakUpCsvFile()
-    {
+    public Map<String, VendableItem> inventory() throws IOException {
         File inputFile = new File("main.csv");
-        String file = "main.csv";
+        Map<String, VendableItem> inventory = new HashMap<>();
         String line = "";
-            Map<String, String> spaceAndItemName = new HashMap<>();
+        String file = "main.csv";
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        while((line = br.readLine()) !=null)
         {
-            try
-            {
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                while((line = br.readLine()) !=null)
-                {
-                    String [] items = line.split(",");
+            String[] itemInfo = line.split(",");
+            String itemCode = itemInfo[0];
+            String itemName = itemInfo[1];
+            double itemPrice = Double.parseDouble(itemInfo[2]);
+            String itemType = itemInfo[3];
 
-                    for (int i = 0; i <= items.length ; i+= 2)
-                    {
-                        spaceAndItemName.put(items[0], items[1]);
-                    }
-                }
-            }
-            catch (IOException e)
+            if(itemType.equals("Gum"))
             {
-                throw new RuntimeException(e);
+                VendableItem currentItem = new Gum(itemCode, itemName, itemPrice, itemType);
+                inventory.put(itemCode, currentItem);
+            }
+            if (itemType.equals("Drink"))
+            {
+                VendableItem currentItem = new Drink(itemCode, itemName, itemPrice, itemType);
+                inventory.put(itemCode, currentItem);
+            }
+            if (itemType.equals("Munchy"))
+            {
+                VendableItem currentItem = new Munchy(itemCode, itemName, itemPrice, itemType);
+                inventory.put(itemCode, currentItem);
+            }
+            if (itemType.equals("Candy"))
+            {
+                VendableItem currentItem = new Candy(itemCode, itemName, itemPrice, itemType);
+                inventory.put(itemCode, currentItem);
             }
         }
-        return spaceAndItemName;
+        return inventory;
     }
 
-
-
-    public Map<String, Double> breakUpCsvFile2()
-    {
-        File inputFile = new File("main.csv");
-        String file = "main.csv";
-        String line = "";
-        Map<String, Double> spaceAndItemPrice = new HashMap<>();
-        {
-            try
-            {
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                while((line = br.readLine()) !=null)
-                {
-                    String [] items = line.split(",");
-
-                    for (int i = 0; i <= items.length ; i+= 2)
-                    {
-                        spaceAndItemPrice.put(items[0], Double.valueOf(items[2]));
-                    }
-                }
-            }
-            catch (IOException e)
-            {
-                throw new RuntimeException(e);
-            }
-        }
-        return spaceAndItemPrice;
-    }
-
-
-
-
-
-
-
-//    try(Scanner reader = new Scanner(inputFile)){
-//        while (reader.hasNextLine()) {
-//            String items = reader.nextLine();
-//            String[] allItems = items.split(",");
-//            Map<String,String> ItemPlaceAndName = new HashMap<>();
-//            ItemPlaceAndName.put(1,2);
-//
-//        }
-//    }
 }
 
 
 
-    //Setters
-    //End Setters
+
 
 
 

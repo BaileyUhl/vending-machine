@@ -1,22 +1,25 @@
 package com.techelevator;
 
-import java.math.BigDecimal;
+import java.text.NumberFormat;
 
-public class VendableItem implements BuyableItem
+public abstract class VendableItem implements BuyableItem
 {
     private String name;
     private String location;
     private double price;
     private String itemCategory;
+    private int quantity;
+    private int RESTOCK = 5;
 //    private int bogodo;
 
     //Constructor
-    public VendableItem(String name, String location, double price, String itemCategory)
+    public VendableItem(String location, String name, double price, String itemCategory)
     {
         this.name = name;
         this.location = location;
         this.price = price;
         this.itemCategory = itemCategory;
+        int quantity = 5;
 //        this.bogodo = bogodo;
     }
     //End Constructor
@@ -31,6 +34,13 @@ public class VendableItem implements BuyableItem
     public double getPrice() {
         return price;
     }
+    public int getRESTOCK() {
+        return RESTOCK;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
 
     @Override
     public String getSoundItemMakes() {
@@ -40,7 +50,10 @@ public class VendableItem implements BuyableItem
     public String getItemCategory() {
         return itemCategory;
     }
-//    public int getBogodo() {
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+    //    public int getBogodo() {
 //        return bogodo;
 //    }
     //End Getters
@@ -59,12 +72,16 @@ public class VendableItem implements BuyableItem
     public void setItemCategory(String itemCategory) {
         this.itemCategory = itemCategory;
     }
-//    public void setBogodo(int bogodo) {
+    public void setRESTOCK(int RESTOCK) {
+        this.RESTOCK = RESTOCK;
+    }
+    //    public void setBogodo(int bogodo) {
 //        this.bogodo = bogodo;
 //    }
     //End Setters
 
-
-
-
+    public void minusQuantity()
+    {
+        this.quantity--;
+    }
 }

@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 public class Candy extends VendableItem
 {
     //Constructor
-    public Candy(String name, String location, double price, String soundItemMakes)
+    public Candy(String location, String name, double price, String soundItemMakes)
     {
-        super(name, location, price, soundItemMakes);
+        super(location, name, price, soundItemMakes);
     }
     //End Constructor
 }
