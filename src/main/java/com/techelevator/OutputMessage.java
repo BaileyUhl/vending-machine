@@ -35,23 +35,28 @@ public class OutputMessage extends InventoryManager
         System.out.println("Sorry, the item you inputted is sold out.");
     }
     public void mainmenu()
-    {
-        System.out.println("Welcome to the best vending machine in town!");
-        System.out.println();
-        System.out.println("Choose one of the following options:" + "\n" + "(1) Display Vending Machine Items "
-                + "\n" + "(2) Purchase" + "\n" + "(3) Exit");
+    {   System.out.println("⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡");
+        System.out.println("⚡⚡⯈Welcome to the best vending machine in town!⯇⚡⚡");
+        System.out.println("⚡⚡                                               ⚡⚡");
+        System.out.println("⚡⚡Choose one of the following options:           ⚡⚡"
+                + "\n" + "⚡⚡(⯈ 1) Display Vending Machine Items            ⚡⚡"
+                + "\n" + "⚡⚡(⯈ 2) Purchase                                 ⚡⚡"
+                + "\n" + "⚡⚡(⯈ 3) Exit                                     ⚡⚡");
+        System.out.println("⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡");
     }
     public void mainPurcahsemenu()
-    {
+    {System.out.println("♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦");
         System.out.println();
         System.out.println("Choose one of the following options:"
-                + "\n" + "(2) Purchase" + "\n" + "(3) Exit");
+                + "\n" + "(⯈ 2) Purchase" + "\n" + "(⯈ 3) Exit");
+        System.out.println(" ♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦");
     }
     public void moneyMenu()
-    {
+    {System.out.println("♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦");
         System.out.println();
-        System.out.println("Choose one of the following options:" + "\n" + "(1) Feed Money "
-                + "\n" + "(2) Select Product" + "\n" + "(3) Finish Transaction");
+        System.out.println("Choose one of the following options:" + "\n" + "(⯈ 1) Feed Money "
+                + "\n" + "(⯈ 2) Select Product" + "\n" + "(⯈ 3) Finish Transaction");
+        System.out.println("♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦");
     }
 
     public void mainsssss() throws IOException {

@@ -7,16 +7,15 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.Currency;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class VendingMachineCLI extends InventoryManager {
     private final Scanner userInput = new Scanner(System.in);
     String pattern = ".00";
     DecimalFormat decimal = new DecimalFormat(pattern);
+    Currency curr = Currency.getInstance(Locale.US);
+    NumberFormat fmt = NumberFormat.getCurrencyInstance();
     String choice = "";
     int bogodoCounter = 1;
     AccountController newAccount = new AccountController(0.0);
@@ -45,6 +44,7 @@ public class VendingMachineCLI extends InventoryManager {
             OutputMessage main = new OutputMessage();
             main.mainmenu();
 
+
             choice = userInput.nextLine();
             InventoryManager setInventory = new InventoryManager();
             Map<String, VendableItem> inventory = setInventory.inventory();
@@ -55,7 +55,7 @@ public class VendingMachineCLI extends InventoryManager {
                     String slot = item.getKey();
                     VendableItem itemObject = item.getValue();
 
-                    System.out.println(slot + " " + itemObject.getName() + " " + itemObject.getPrice() + " " + itemObject.getQuantity());
+                    System.out.println(slot + " " + itemObject.getName() + " " + fmt.format(itemObject.getPrice()) + " " + itemObject.getQuantity());
                 }
                 main.mainPurcahsemenu();
                 choice = userInput.nextLine();
@@ -68,7 +68,7 @@ public class VendingMachineCLI extends InventoryManager {
 
                 //While we're in the Purchase tab
                 while (true) {
-                    System.out.println("Your balance is: " + balance);
+                    System.out.println("Your balance is: " + fmt.format(balance));
                     main.moneyMenu();
                     String choiceBanana = userInput.nextLine();
 
@@ -77,7 +77,7 @@ public class VendingMachineCLI extends InventoryManager {
                         System.out.println("Please enter how much you wish to deposit (whole number only) ");
                         double newbalance = Double.parseDouble(userInput.nextLine());
                         balance = newAccount.deposit(newbalance);
-                        System.out.println(balance);
+                        System.out.println(fmt.format(balance));
                     }
                     //End Purchase menu option (1) Feed Money
 
@@ -88,11 +88,14 @@ public class VendingMachineCLI extends InventoryManager {
                     if (choiceBanana.equals("2")) {
                         if(bogodoCounter % 2 == 0)
                         {
+
+                            System.out.println("Flash sale happening! All products are now $1 less!");
+
                             for (Map.Entry<String, VendableItem> item : inventory.entrySet()) {
                                 String slot = item.getKey();
                                 VendableItem itemObject = item.getValue();
 
-                                System.out.println(slot + " " + itemObject.getName() + " " + (decimal.format(itemObject.getPrice() - 1))+ " " + itemObject.getQuantity());
+                                System.out.println(slot + " " + itemObject.getName() + " " + (fmt.format(itemObject.getPrice() - 1))+ " " + itemObject.getQuantity());
                             }
                         }
 
@@ -100,7 +103,7 @@ public class VendingMachineCLI extends InventoryManager {
                             for (Map.Entry<String, VendableItem> item : inventory.entrySet()) {
                                 String slot = item.getKey();
                                 VendableItem itemObject = item.getValue();
-                                System.out.println(slot + " " + itemObject.getName() + " " + itemObject.getPrice() + " " + itemObject.getQuantity());
+                                System.out.println(slot + " " + itemObject.getName() + " " +  (fmt.format(itemObject.getPrice() )) + " " + itemObject.getQuantity());
                             }
                         }
                         System.out.println("Which item would you like to buy?");
@@ -112,8 +115,9 @@ public class VendingMachineCLI extends InventoryManager {
 
                             if(bogodoCounter % 2 == 0 && choice.equals(slot) && balance >= itemObject.getPrice() && itemObject.getQuantity() > 0)
                             {
-                                System.out.println("Vending " + itemObject.getName());
+                                System.out.println("Vending " + itemObject.getName() +  (fmt.format(itemObject.getPrice() - 1)));
                                 // subtract the price from balance
+
                                 balance -= itemObject.getPrice();
                                 int remain = itemObject.getQuantity() - 1;
                                 itemObject.setQuantity(remain);
@@ -130,17 +134,20 @@ public class VendingMachineCLI extends InventoryManager {
                                 }
                                 if (itemType.equals("Munchy")) {
                                     System.out.println("Crunch Crunch, Yum!");
-                                }
+                                }bogodoCounter++;
                             }
                             if (choice.equals(slot) && balance < itemObject.getPrice()) {
-                                System.out.println("Broke boy add more money >:(");
+                                System.out.println("Please insert more money from the main menu!");
                             }
                             if (choice.equals(slot) && itemObject.getQuantity() == 0) {
                                 System.out.println("Sold Out!");
                             }
 
-                            if (bogodoCounter % 2 == 1 && choice.equals(slot) && balance >= itemObject.getPrice() && itemObject.getQuantity() > 0) {
-                                System.out.println("Vending " + itemObject.getName());
+                            if (bogodoCounter % 2 == 1 && choice.equals(slot) && balance > 0 && itemObject.getQuantity() > 0) {
+                                if(balance < itemObject.getPrice()){
+                                    break;
+                                }
+                                System.out.println("Vending " + itemObject.getName() +  (fmt.format(itemObject.getPrice() )) );
                                 // subtract the price from balance
                                 balance -= itemObject.getPrice();
                                 int remain = itemObject.getQuantity() - 1;
@@ -158,22 +165,19 @@ public class VendingMachineCLI extends InventoryManager {
                                 }
                                 if (itemType.equals("Munchy")) {
                                     System.out.println("Crunch Crunch, Yum!");
-                                }
+                                }bogodoCounter++;
                             }
-                            if (choice.equals(slot) && balance < itemObject.getPrice()) {
-                                System.out.println("Broke boy add more money >:(");
-                            }
-                            if (choice.equals(slot) && itemObject.getQuantity() == 0) {
+                            if ( itemObject.getQuantity() == 0) {
                                 System.out.println("Sold Out!");
                             }
                         }
-                        bogodoCounter++;
+
                     }
                     //End Purchase Menu option (2) Select Product
 
                     //Purchase Menu option (3) Finish Transaction
                     if (choiceBanana.equals("3")) {
-                        System.out.println(balance);
+                        System.out.println(fmt.format(balance));
                         System.out.println("Thank you for your purchase, your change will be: ");
                         newAccount.makeChange(balance);
                         System.exit(0);
@@ -186,7 +190,7 @@ public class VendingMachineCLI extends InventoryManager {
 
             //Main Menu Option (3) Exit
             if (choice.equals("3")) {
-                System.out.println(balance);
+                System.out.println("Remaining Balance" + fmt.format(balance));
                 System.out.println("Thank you for your purchase, your change will be: ");
                 newAccount.makeChange(balance);
                 System.exit(0);
