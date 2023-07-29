@@ -9,18 +9,21 @@ public class AccountController
     public static final double STARTING_BALANCE = 0.00;
 
     //Constructor
-    public AccountController(double remainingBalance) {
+    public AccountController(double remainingBalance)
+    {
         this.remainingBalance = 0.0;
     }
     //End Constructor
 
     //Getter
-    public double getRemainingBalance() {
+    public double getRemainingBalance()
+    {
         return remainingBalance;
     }
     //End Getter
 
-    public void setRemainingBalance(double remainingBalance) {
+    public void setRemainingBalance(double remainingBalance)
+    {
         this.remainingBalance = remainingBalance;
     }
 
@@ -35,7 +38,10 @@ public class AccountController
         remainingBalance -= price;
         return remainingBalance;
     }
-    public void  makeChange (double balance){
+
+    //Dispensing money/ your change
+    public void  makeChange (double balance)
+    {
        int quarters = 0;
         int dimes = 0;
         int nickels = 0;
@@ -50,5 +56,6 @@ public class AccountController
         System.out.println("Your change will be " + quarters + " Quarters " + dimes + " Dimes " + nickels + "  Nickels ");
        // remainingBalance = balance;
     }
+    //End dispensing money/ your change
 }
 

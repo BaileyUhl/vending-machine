@@ -4,8 +4,9 @@ import java.io.*;
 import java.text.DecimalFormat;
 import java.time.format.FormatStyle;
 import java.util.*;
+import java.util.logging.LogManager;
 
-public class InventoryManager
+public class InventoryManager extends LogManager
 {
     private Map<String, String> spaceAndItemName = new HashMap<>();
     private Map<Double, String> priceAndType = new HashMap<>();
@@ -14,13 +15,14 @@ public class InventoryManager
     public InventoryManager() throws FileNotFoundException {
     }
 
-    public Map<String, String> getSpaceAndItemName() {
+    public Map<String, String> getSpaceAndItemName()
+    {
         return spaceAndItemName;
     }
 
 
-
-    public Map<String, VendableItem> inventory() throws IOException {
+    public Map<String, VendableItem> inventory() throws IOException
+    {
         File inputFile = new File("main.csv");
         Map<String, VendableItem> inventory = new HashMap<>();
         String line = "";
@@ -57,7 +59,8 @@ public class InventoryManager
         }
         return inventory;
     }
-    public String[] change (double balance){
+    public String[] change (double balance)
+    {
         String [] changer = new String[0];
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
         int change = 0;
@@ -87,7 +90,8 @@ public class InventoryManager
         int pennies = cents3;
 
         return changer;
-    }}
+    }
+}
 
 
 
