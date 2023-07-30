@@ -11,7 +11,7 @@ public class AccountController
     //Constructor
     public AccountController(double remainingBalance)
     {
-        this.remainingBalance = 0.0;
+        this.remainingBalance= 0.0;
     }
     //End Constructor
 
